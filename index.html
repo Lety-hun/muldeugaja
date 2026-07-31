@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>물드가자 | 부산 해양레저 공동예약</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    :root{--navy:#092d40;--sea:#087f8c;--mint:#e8f8f6;--coral:#ff715f;--sand:#fff7ec;--text:#1c333c;--muted:#72858a;--line:#dbe9e9;--bg:#f3f8f8}*{box-sizing:border-box}body{margin:0;background:#d8eded;color:var(--text);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif}.app{width:min(100%,560px);min-height:100vh;margin:0 auto;background:#fff;padding-bottom:86px}.view{display:none}.view.active{display:block}.login{min-height:100vh;padding:30px 22px;background:linear-gradient(145deg,#063a4c,#087f8c 58%,#bdf3e9);color:white}.logo{font-weight:900;font-size:28px;letter-spacing:-1.8px}.logo span{color:#aef4e6}.login-hero{margin-top:92px}.login h1{font-size:34px;line-height:1.26;letter-spacing:-2px;margin:0 0 14px}.login p{line-height:1.65;color:#e4fbf7}.login-card{background:#fff;color:var(--text);border-radius:24px;padding:20px;margin-top:80px;box-shadow:0 14px 30px #003b4159}.login-card h2{font-size:18px;margin:0 0 12px}.roles{display:grid;grid-template-columns:1fr 1fr;gap:10px}.role{border:1px solid var(--line);border-radius:17px;padding:15px 12px;text-align:left;background:#fff;color:var(--text);font:inherit;cursor:pointer}.role:hover{border-color:var(--sea);background:var(--mint)}.role b{display:block;font-size:15px;margin-bottom:6px}.role small{color:var(--muted);line-height:1.45}.top{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #edf2f2;position:sticky;top:0;background:#fffffff5;z-index:5}.top-brand{font-size:19px;color:var(--navy);font-weight:900;letter-spacing:-1px}.icon-btn{border:0;background:transparent;color:var(--sea);font:inherit;font-weight:700;cursor:pointer}.page{padding:18px}.eyebrow{color:var(--sea);font-size:12px;font-weight:800;letter-spacing:.1px}.headline{font-size:27px;line-height:1.3;letter-spacing:-1.8px;margin:5px 0 8px}.hint{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.filters{display:flex;gap:7px;overflow:auto;padding:16px 0 12px;scrollbar-width:none}.filter{white-space:nowrap;padding:8px 13px;border:1px solid var(--line);border-radius:99px;background:#fff;color:#587177;font-size:13px;font-weight:700;cursor:pointer}.filter.active{background:var(--navy);border-color:var(--navy);color:white}.summary{display:flex;align-items:center;justify-content:space-between;background:var(--mint);border-radius:14px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:#25616b}.summary b{color:var(--navy)}.list{display:grid;gap:12px}.card{display:grid;grid-template-columns:82px 1fr;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:white;cursor:pointer;box-shadow:0 3px 10px #133f4808}.card:active{transform:scale(.99)}.kind{display:flex;align-items:center;justify-content:center;padding:8px;background:#23a7a8;color:white;font-weight:900;font-size:15px;letter-spacing:-.8px}.kind.yacht{background:#df7d67}.kind.kayak{background:#739d66}.kind.diving{background:#467ca8}.kind.event{background:#8c74a8}.info{padding:12px 13px;position:relative}.fav-mini{position:absolute;right:10px;top:9px;border:0;background:transparent;color:#d8a39e;font-size:21px;cursor:pointer;line-height:1}.fav-mini.on{color:#e85d54}.info h2{font-size:16px;line-height:1.35;margin:3px 30px 4px 0;letter-spacing:-.5px}.shop{font-size:11px;color:var(--sea);font-weight:800}.meta{font-size:11px;color:var(--muted)}.row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px}.badge{display:inline-block;padding:4px 7px;border-radius:99px;background:#fff1dc;color:#a55e08;font-size:10px;font-weight:800}.badge.ok{background:#e3f7ed;color:#187b55}.badge.check{background:#f0f1f3;color:#667176}.bar{height:6px;background:#e8f0f0;border-radius:9px;margin:8px 0 5px;overflow:hidden}.bar i{display:block;height:100%;background:var(--coral);border-radius:9px}.price{color:var(--navy);font-size:16px;font-weight:900}.discount{color:#e53935!important;font-weight:900}.discount-box{background:#fff1f0!important;border:1px solid #ffc9c5!important}.person-range{width:100%;accent-color:var(--sea);margin:13px 0 4px}.person-count{display:inline-block;background:var(--mint);color:var(--sea);font-weight:900;border-radius:99px;padding:6px 11px;font-size:14px}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);display:flex;justify-content:space-around;padding:11px 6px 15px;background:#fffffff8;border-top:1px solid var(--line);z-index:8}.navbtn{border:0;background:none;color:var(--muted);font:inherit;font-size:11px;cursor:pointer}.navbtn b{display:block;font-size:19px;line-height:19px}.navbtn.active{color:var(--sea);font-weight:800}.detail-hero{border-radius:20px;padding:19px;background:linear-gradient(135deg,#087f8c,#36b2ad);color:white}.detail-hero.yacht{background:linear-gradient(135deg,#be604f,#ed9471)}.detail-hero.kayak{background:linear-gradient(135deg,#597b4f,#97bd7c)}.detail-hero.diving{background:linear-gradient(135deg,#356a95,#71a3c4)}.detail-hero h1{font-size:25px;line-height:1.3;margin:5px 0}.detail-hero p{margin:0;font-size:13px;line-height:1.55;color:#eaffff}.panel{border:1px solid var(--line);border-radius:17px;padding:15px;margin:14px 0;background:#fff}.panel h3{font-size:16px;margin:0 0 8px}.join-grid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.button{width:100%;border:0;border-radius:13px;background:var(--sea);padding:13px;color:white;font:inherit;font-weight:800;cursor:pointer}.button:disabled{opacity:.55;cursor:not-allowed}.button.sub{background:#edf8f6;color:#17616a}.button.warn{background:#fff2ed;color:#b94e3f}.button.heart{background:#fff0ec;color:#d15d50}.small-btn{border:1px solid var(--line);background:white;border-radius:10px;padding:8px 10px;color:var(--sea);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.list-row{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #edf2f2;font-size:13px}.list-row:last-child{border:0}.post{padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.55}.post:last-child{border:0}.tag{font-size:10px;padding:3px 6px;border-radius:8px;background:var(--mint);color:var(--sea)}.empty{padding:40px 15px;text-align:center;color:var(--muted)}.profile{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:17px}.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#dff3f0;color:var(--navy);font-weight:900}.profile p{margin:3px 0 0;color:var(--muted);font-size:12px}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.quick button,.stat{border:1px solid var(--line);border-radius:13px;background:white;padding:11px 4px;color:var(--text);font:inherit;font-size:11px;cursor:pointer}.quick b,.stat b{display:block;font-size:18px;color:var(--navy);margin-bottom:3px}.form label{display:block;font-size:13px;font-weight:800;margin:14px 0 6px}.form input,.form select,.form textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;font:inherit;font-size:14px;color:var(--text);background:#fff}.form textarea{resize:vertical}.notice{background:var(--sand);border-radius:13px;padding:11px 12px;font-size:12px;color:#8a5b28;line-height:1.5}.owner-head{background:var(--navy);color:white;padding:18px;border-radius:18px}.owner-head p{font-size:12px;color:#c9e4e8;margin:4px 0 0}.owner-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.owner-stats div{border:1px solid var(--line);border-radius:13px;padding:11px 7px;text-align:center;font-size:11px}.owner-stats b{display:block;font-size:17px;color:var(--navy);margin-bottom:3px}.hide{display:none!important}@media(min-width:700px){body{padding:22px}.app{border-radius:25px;min-height:calc(100vh - 44px);box-shadow:0 15px 55px #184a5050}.bottom{bottom:22px;border-radius:0 0 25px 25px}}
+    :root{--navy:#092d40;--sea:#087f8c;--mint:#e8f8f6;--coral:#ff715f;--sand:#fff7ec;--text:#1c333c;--muted:#72858a;--line:#dbe9e9;--bg:#f3f8f8}*{box-sizing:border-box}body{margin:0;background:#d8eded;color:var(--text);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif}.app{width:min(100%,560px);min-height:100vh;margin:0 auto;background:#fff;padding-bottom:86px}.view{display:none}.view.active{display:block}.login{min-height:100vh;padding:30px 22px;background:linear-gradient(145deg,#063a4c,#087f8c 58%,#bdf3e9);color:white}.logo{font-weight:900;font-size:28px;letter-spacing:-1.8px}.logo span{color:#aef4e6}.login-hero{margin-top:55px}.login h1{font-size:34px;line-height:1.26;letter-spacing:-2px;margin:0 0 14px}.login p{line-height:1.65;color:#e4fbf7}.login-card{background:#fff;color:var(--text);border-radius:24px;padding:20px;margin-top:38px;box-shadow:0 14px 30px #003b4159}.login-card h2{font-size:20px;margin:0 0 6px}.auth-desc{margin:0 0 16px!important;color:var(--muted)!important;font-size:13px;line-height:1.5!important}.auth-form{display:grid;gap:11px;text-align:left}.auth-label{display:grid;gap:6px;color:var(--text);font-size:12px;font-weight:800}.auth-input{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;font-size:14px;color:var(--text);background:#fff}.auth-input:focus{outline:2px solid #9fe5dc;border-color:var(--sea)}.password-field{position:relative}.password-field .auth-input{padding-right:48px}.password-toggle{position:absolute;right:4px;bottom:4px;width:40px;height:40px;border:0;border-radius:10px;background:transparent;color:#557176;font-size:17px;cursor:pointer}.password-toggle:active{background:var(--mint);color:var(--sea)}.auth-role-wrap{padding-top:2px}.auth-role-title{display:block;margin-bottom:7px;font-size:12px;font-weight:800}.auth-roles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.auth-role{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff;color:var(--text);font:inherit;font-size:13px;font-weight:800;cursor:pointer}.auth-role.selected{border-color:var(--sea);background:var(--mint);color:#12666e}.auth-status{min-height:18px;margin:11px 0 0;color:#397278;font-size:12px;line-height:1.45}.auth-status.error{color:#c34e44}.auth-submit{margin-top:2px}.auth-toggle{display:block;width:100%;border:0;background:transparent;padding:14px 4px 0;color:var(--sea);font:inherit;font-size:13px;font-weight:800;cursor:pointer}.login-note{margin:15px 2px 0!important;font-size:11px;color:#d5f2ed!important}.top{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #edf2f2;position:sticky;top:0;background:#fffffff5;z-index:5}.top-brand{font-size:19px;color:var(--navy);font-weight:900;letter-spacing:-1px}.icon-btn{border:0;background:transparent;color:var(--sea);font:inherit;font-weight:700;cursor:pointer}.page{padding:18px}.eyebrow{color:var(--sea);font-size:12px;font-weight:800;letter-spacing:.1px}.headline{font-size:27px;line-height:1.3;letter-spacing:-1.8px;margin:5px 0 8px}.hint{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.filters{display:flex;gap:7px;overflow:auto;padding:16px 0 12px;scrollbar-width:none}.filter{white-space:nowrap;padding:8px 13px;border:1px solid var(--line);border-radius:99px;background:#fff;color:#587177;font-size:13px;font-weight:700;cursor:pointer}.filter.active{background:var(--navy);border-color:var(--navy);color:white}.summary{display:flex;align-items:center;justify-content:space-between;background:var(--mint);border-radius:14px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:#25616b}.summary b{color:var(--navy)}.list{display:grid;gap:12px}.card{display:grid;grid-template-columns:82px 1fr;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:white;cursor:pointer;box-shadow:0 3px 10px #133f4808}.card:active{transform:scale(.99)}.kind{display:flex;align-items:center;justify-content:center;padding:8px;background:#23a7a8;color:white;font-weight:900;font-size:15px;letter-spacing:-.8px}.kind.yacht{background:#df7d67}.kind.kayak{background:#739d66}.kind.diving{background:#467ca8}.kind.event{background:#8c74a8}.info{padding:12px 13px;position:relative}.fav-mini{position:absolute;right:10px;top:9px;border:0;background:transparent;color:#d8a39e;font-size:21px;cursor:pointer;line-height:1}.fav-mini.on{color:#e85d54}.info h2{font-size:16px;line-height:1.35;margin:3px 30px 4px 0;letter-spacing:-.5px}.shop{font-size:11px;color:var(--sea);font-weight:800}.meta{font-size:11px;color:var(--muted)}.row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px}.badge{display:inline-block;padding:4px 7px;border-radius:99px;background:#fff1dc;color:#a55e08;font-size:10px;font-weight:800}.badge.ok{background:#e3f7ed;color:#187b55}.badge.check{background:#f0f1f3;color:#667176}.bar{height:6px;background:#e8f0f0;border-radius:9px;margin:8px 0 5px;overflow:hidden}.bar i{display:block;height:100%;background:var(--coral);border-radius:9px}.price{color:var(--navy);font-size:16px;font-weight:900}.discount{color:#e53935!important;font-weight:900}.discount-box{background:#fff1f0!important;border:1px solid #ffc9c5!important}.person-range{width:100%;accent-color:var(--sea);margin:13px 0 4px}.person-count{display:inline-block;background:var(--mint);color:var(--sea);font-weight:900;border-radius:99px;padding:6px 11px;font-size:14px}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);display:flex;justify-content:space-around;padding:11px 6px 15px;background:#fffffff8;border-top:1px solid var(--line);z-index:8}.navbtn{border:0;background:none;color:var(--muted);font:inherit;font-size:11px;cursor:pointer}.navbtn b{display:block;font-size:19px;line-height:19px}.navbtn.active{color:var(--sea);font-weight:800}.detail-hero{border-radius:20px;padding:19px;background:linear-gradient(135deg,#087f8c,#36b2ad);color:white}.detail-hero.yacht{background:linear-gradient(135deg,#be604f,#ed9471)}.detail-hero.kayak{background:linear-gradient(135deg,#597b4f,#97bd7c)}.detail-hero.diving{background:linear-gradient(135deg,#356a95,#71a3c4)}.detail-hero h1{font-size:25px;line-height:1.3;margin:5px 0}.detail-hero p{margin:0;font-size:13px;line-height:1.55;color:#eaffff}.panel{border:1px solid var(--line);border-radius:17px;padding:15px;margin:14px 0;background:#fff}.panel h3{font-size:16px;margin:0 0 8px}.join-grid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.button{width:100%;border:0;border-radius:13px;background:var(--sea);padding:13px;color:white;font:inherit;font-weight:800;cursor:pointer}.button:disabled{opacity:.55;cursor:not-allowed}.button.sub{background:#edf8f6;color:#17616a}.button.warn{background:#fff2ed;color:#b94e3f}.button.heart{background:#fff0ec;color:#d15d50}.small-btn{border:1px solid var(--line);background:white;border-radius:10px;padding:8px 10px;color:var(--sea);font:inherit;font-size:12px;font-weight:700;cursor:pointer}.list-row{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #edf2f2;font-size:13px}.list-row:last-child{border:0}.post{padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.55}.post:last-child{border:0}.tag{font-size:10px;padding:3px 6px;border-radius:8px;background:var(--mint);color:var(--sea)}.empty{padding:40px 15px;text-align:center;color:var(--muted)}.profile{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:17px}.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#dff3f0;color:var(--navy);font-weight:900}.profile p{margin:3px 0 0;color:var(--muted);font-size:12px}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.quick button,.stat{border:1px solid var(--line);border-radius:13px;background:white;padding:11px 4px;color:var(--text);font:inherit;font-size:11px;cursor:pointer}.quick b,.stat b{display:block;font-size:18px;color:var(--navy);margin-bottom:3px}.form label{display:block;font-size:13px;font-weight:800;margin:14px 0 6px}.form input,.form select,.form textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;font:inherit;font-size:14px;color:var(--text);background:#fff}.form textarea{resize:vertical}.notice{background:var(--sand);border-radius:13px;padding:11px 12px;font-size:12px;color:#8a5b28;line-height:1.5}.owner-head{background:var(--navy);color:white;padding:18px;border-radius:18px}.owner-head p{font-size:12px;color:#c9e4e8;margin:4px 0 0}.owner-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.owner-stats b{display:block;font-size:17px;color:var(--navy);margin-bottom:3px}.hide{display:none!important}@media(min-width:700px){body{padding:22px}.app{border-radius:25px;min-height:calc(100vh - 44px);box-shadow:0 15px 55px #184a5050}.bottom{bottom:22px;border-radius:0 0 25px 25px}}
   .view-switch{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:16px 0 12px;padding:5px;background:#eef6f6;border-radius:14px}.view-switch button{border:0;border-radius:10px;padding:11px 8px;background:transparent;color:#6a8185;font:inherit;font-size:13px;font-weight:800;cursor:pointer}.view-switch button.active{background:#fff;color:var(--navy);box-shadow:0 2px 8px #123a4215}.map-strip{height:152px;border:1px solid var(--line);border-radius:17px;overflow:hidden;margin:0 0 14px;position:relative}.map-strip .leaflet-control-attribution{font-size:8px}.map-locate{position:absolute;z-index:500;right:9px;top:9px;border:0;border-radius:20px;padding:8px 10px;background:#fff;color:#176b7a;box-shadow:0 2px 9px #17373a40;font:inherit;font-size:11px;font-weight:900;cursor:pointer}.map-locate.on{color:#087ed0}.map-panel{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}.map-head{padding:14px 14px 9px;display:flex;align-items:center;justify-content:space-between}.map-head b{font-size:15px}.map-head span{font-size:11px;color:var(--muted)}#fullMap{height:calc(100vh - 265px);min-height:420px}.pin-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900;border:3px solid #fff;box-shadow:0 2px 8px #163e4a66}.user-location-marker{background:transparent!important;border:0!important;width:82px!important;height:48px!important;overflow:visible!important}.user-location-pin{position:relative;display:flex;align-items:center;justify-content:center;gap:4px;width:max-content;min-width:76px;height:31px;padding:0 10px;border:3px solid #fff;border-radius:10px;background:#1677ff;color:#fff;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 3px 10px #063d7c88}.user-location-pin::after{content:"";position:absolute;bottom:-10px;left:50%;width:0;height:0;transform:translateX(-50%);border-left:9px solid transparent;border-right:9px solid transparent;border-top:10px solid #fff;filter:drop-shadow(0 2px 1px #063d7c33)}.user-location-pin::before{content:"";position:absolute;bottom:-6px;left:50%;width:0;height:0;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid #1677ff;z-index:1}.user-location-pin span{font-size:15px;line-height:1}.user-location-pin b{font-size:12px}.map-popup{min-width:180px;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif}.map-popup b{display:block;font-size:14px;line-height:1.35;margin:3px 0}.map-popup p{font-size:11px;line-height:1.45;color:#60767a;margin:5px 0}.map-popup button{border:0;border-radius:8px;background:var(--sea);color:white;padding:7px 9px;font-weight:800;font-size:11px;cursor:pointer}.address-row{margin-top:7px;display:flex;gap:5px;align-items:flex-start;color:#5e7479;font-size:11px;line-height:1.45}.address-row span{font-size:13px}.map-back{margin-top:12px}.leaflet-popup-content-wrapper{border-radius:14px}.leaflet-popup-content{margin:12px 14px}.leaflet-container{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
   .static-map{width:100%;height:100%;position:relative;overflow:hidden;background:#b8d9df}.osm-frame{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:auto}.map-marker{position:absolute;z-index:2;transform:translate(-50%,-50%);width:29px;height:29px;border:3px solid #fff;border-radius:50%;background:var(--pin);color:#fff;box-shadow:0 2px 8px #163e4a77;font-size:11px;font-weight:900;cursor:pointer}.map-marker:active{transform:translate(-50%,-50%) scale(.9)}.map-card{position:absolute;z-index:3;left:10px;right:10px;bottom:10px;padding:10px 11px;border-radius:13px;background:#fff;box-shadow:0 8px 18px #0c2d3866;font-size:11px;line-height:1.4}.map-card b{display:block;font-size:13px;margin:3px 0}.map-card p{margin:3px 0 8px;color:#657c80}.map-card button{border:0;border-radius:8px;background:var(--sea);color:#fff;padding:7px 9px;font:inherit;font-weight:800;font-size:11px;cursor:pointer}.map-card .close-map-card{position:absolute;right:7px;top:6px;background:transparent;color:#526c70;padding:2px 5px;font-size:17px}.map-strip .map-card{font-size:10px;padding:8px 10px}.map-strip .map-card b{font-size:12px}.map-strip .map-card p{display:none}.map-strip .map-card button{padding:5px 7px;font-size:10px}
   .map-actions{display:flex;gap:5px;align-items:center}.map-actions .small-btn{padding:7px 8px;font-size:11px}.map-status{margin:0;padding:0 14px 10px;color:var(--muted);font-size:11px;line-height:1.45}
+    /* 지도에서 활동 종류를 글자 대신 그림으로 구분합니다. */
+    .pin-dot{width:42px!important;height:42px!important;display:grid!important;place-items:center!important;background:var(--pin)!important;color:#fff!important;border:3px solid #fff!important;border-radius:15px 15px 15px 3px!important;box-shadow:0 4px 12px #163e4a66!important;transform:rotate(-45deg);transition:transform .18s ease,box-shadow .18s ease}.pin-dot:hover{transform:rotate(-45deg) scale(1.08);box-shadow:0 6px 16px #163e4a82!important}.pin-dot i{font-size:17px;transform:rotate(45deg);text-shadow:0 1px 1px #063d4a55}.pin-dot::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.42;top:7px;right:7px}
+  .map-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 11px;padding:10px 3px 2px;color:#61787d;font-size:11px}.legend-title{font-weight:900;color:var(--navy);margin-right:1px}.legend-item{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}.legend-icon{width:20px;height:20px;display:grid;place-items:center;background:var(--pin);border:2px solid #fff;border-radius:7px 7px 7px 2px;box-shadow:0 2px 5px #163e4a33;transform:rotate(-45deg);color:#fff}.legend-icon i{font-size:9px;transform:rotate(45deg)}
+  .owner-stats div{border:1px solid var(--line);border-radius:13px;padding:11px 7px;text-align:center;font-size:11px}
   </style>
 </head>
 <body>
@@ -17,7 +22,20 @@
   <section id="loginView" class="view active login">
     <div class="logo">물<span>드</span>가자</div>
     <div class="login-hero"><h1>혼자 와도,<br>부산 바다는 같이.</h1><p>같은 시간, 같은 해양레저를 원하는 사람들과<br>안전하게 공동예약하세요.</p></div>
-    <div class="login-card"><h2>어떻게 이용할까요?</h2><div class="roles"><button class="role" onclick="login('guest')"><b>여행객으로 시작</b><small>가게와 체험을 골라<br>합석 예약에 참여해요.</small></button><button class="role" onclick="login('owner')"><b>가게 운영자로 시작</b><small>내 해양레저 상품과<br>신청자를 관리해요.</small></button></div></div>
+    <div class="login-card">
+      <h2 id="authTitle">로그인하고 시작하기</h2>
+      <p id="authDescription" class="auth-desc">내 예약과 관심 가게를 안전하게 관리해요.</p>
+      <div class="auth-form">
+        <label id="authNameWrap" class="auth-label" hidden>이름 또는 닉네임<input id="authName" class="auth-input" maxlength="20" placeholder="예: 바다좋아" autocomplete="nickname"></label>
+        <label class="auth-label">이메일<input id="authEmail" class="auth-input" type="email" placeholder="example@email.com" autocomplete="email"></label>
+        <label class="auth-label">비밀번호<div class="password-field"><input id="authPassword" class="auth-input" type="password" minlength="6" placeholder="6자 이상" autocomplete="current-password"><button id="passwordToggleButton" class="password-toggle" type="button" onclick="togglePasswordVisibility()" aria-label="비밀번호 보기" aria-pressed="false"><i class="fa-regular fa-eye"></i></button></div></label>
+        <div id="authRoleWrap" class="auth-role-wrap" hidden><span class="auth-role-title">이용 역할</span><div class="auth-roles"><button id="guestRoleButton" class="auth-role selected" type="button" onclick="selectSignupRole('guest')">여행객</button><button id="ownerRoleButton" class="auth-role" type="button" onclick="selectSignupRole('owner')">가게 운영자</button></div></div>
+      </div>
+      <p id="authStatus" class="auth-status" aria-live="polite"></p>
+      <button id="authSubmitButton" class="button auth-submit" type="button" onclick="authSubmit()">로그인</button>
+      <button id="authModeButton" class="auth-toggle" type="button" onclick="toggleAuthMode()">처음이라면 회원가입</button>
+    </div>
+    <p class="login-note">비밀번호는 물드가자 화면이나 가게에 저장되지 않아요.</p>
   </section>
 
   <section id="guestView" class="view">
@@ -74,11 +92,12 @@
     {id:'dive-seaworld',shop:'씨월드다이브센터',area:'사상구',type:'다이빙',title:'풀장 체험다이빙',time:'일 14:00',min:2,max:4,current:1,price:80000,group:'공개 소개 가격',verified:true,beginner:true,note:'건강 상태·교육 조건 확인 필요',comments:[['물무서워','완전 초보도 가능한가요?'],['운영자','체험 전 안전교육과 건강 확인이 필요합니다.']]},
     {id:'event-northport',shop:'북항 오션 SUP FESTA',area:'북항 친수공원',type:'행사',title:'SUP·카약·수상자전거 체험',time:'행사 기간 확인',min:1,max:20,current:0,price:null,group:'행사별 가격 확인 필요',verified:false,beginner:true,note:'2026 북항 해양레저 행사 정보',comments:[['북항가자','카약도 체험할 수 있나요?'],['운영자','행사별 프로그램을 확인해 주세요.']]}
   ];
-  let selectedType='전체', selectedId=null, role='guest';
+  var selectedType='전체', selectedId=null, role='guest';
   let favorites=JSON.parse(localStorage.getItem('muldeFavorites')||'[]');
   let reservations=JSON.parse(localStorage.getItem('muldeReservations')||'[]');
   let reservationQty=JSON.parse(localStorage.getItem('muldeReservationQty')||'{}');
   let profile=JSON.parse(localStorage.getItem('muldeProfile')||'{"name":"파도언니","bio":"부산 바다를 좋아하는 혼행객이에요.","interest":"서핑, SUP, 요트","level":"완전 초보"}');
+  window.setAuthDisplayName=function(name){if(!name)return;profile.name=name;localStorage.setItem('muldeProfile',JSON.stringify(profile))}
   const activityLocations={
     'surf-songjeong':{address:'부산 해운대구 송정해변로 50',lat:35.1786,lng:129.1997},
     'surf-dadaepo':{address:'부산 사하구 다대동 482-3, 다대포해수욕장 인근',lat:35.0465,lng:128.9674},
@@ -113,16 +132,16 @@
   const kindClass={요트:'yacht',카약:'kayak',다이빙:'diving',행사:'event'};
   const won=v=>v?`₩${v.toLocaleString('ko-KR')}`:'가격 확인 필요';
   function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='guestView')renderList();if(id==='mapView')setTimeout(renderFullMap,0);if(id==='myView')renderMy();if(id==='ownerView')renderOwner()}
-  function login(next){role=next;showView(next==='owner'?'ownerView':'guestView')}
-  function logout(){role='guest';showView('loginView')}
-  function renderList(){ensureExplorerUi();const filters=document.getElementById('filters');filters.innerHTML=types.map(t=>`<button class="filter ${t===selectedType?'active':''}" onclick="filterType('${t}')">${t}</button>`).join('');const mini=document.getElementById('miniMapWrap'),miniShell=mini&&mini.closest('.map-strip');if(selectedType==='패키지'){if(miniShell)miniShell.classList.add('hide');document.getElementById('resultCount').textContent='AI';document.getElementById('activityList').innerHTML=`<article class="card" onclick="showBrowsePackage()"><div class="kind event">AI</div><div class="info"><div class="shop">물드가자 추천</div><h2>내 취향대로 만드는 바다 하루 패키지</h2><div class="meta">레저 선택 → 시간·동선 자동 구성 → 묶음 혜택</div><div class="row"><b>원하는 활동만 고르세요</b><span class="badge ok">패키지</span></div><div class="bar"><i style="width:72%"></i></div><span class="price">최대 18% 혜택 · 예시</span></div></article><article class="card" onclick="showBrowsePackage()"><div class="kind yacht">추천</div><div class="info"><div class="shop">혼행객 인기 조합</div><h2>광안리 SUP + 선셋 요트</h2><div class="meta">가까운 권역 두 곳을 묶은 반일 패키지</div><div class="row"><b>2종 선택 시 10% 혜택</b><span class="badge">테마 패키지</span></div><div class="bar"><i style="width:55%"></i></div><span class="price">AI가 시간 순서 추천</span></div></article>`;return}if(miniShell)miniShell.classList.remove('hide');const rows=mapRows();document.getElementById('resultCount').textContent=rows.length;document.getElementById('activityList').innerHTML=rows.map(cardHtml).join('')||'<div class="empty">해당 활동의 상품을 준비 중이에요.</div>';setTimeout(renderMiniMap,0)}
+  function login(){showView('loginView')}
+  function logout(){if(window.firebaseSignOut){window.firebaseSignOut();return}role='guest';showView('loginView')}
+  function renderList(){ensureExplorerUi();ensureMapLegends();const filters=document.getElementById('filters');filters.innerHTML=types.map(t=>`<button class="filter ${t===selectedType?'active':''}" onclick="filterType('${t}')">${t}</button>`).join('');const mini=document.getElementById('miniMapWrap'),miniShell=mini&&mini.closest('.map-strip');if(selectedType==='패키지'){if(miniShell)miniShell.classList.add('hide');document.getElementById('resultCount').textContent='AI';document.getElementById('activityList').innerHTML=`<article class="card" onclick="showBrowsePackage()"><div class="kind event">AI</div><div class="info"><div class="shop">물드가자 추천</div><h2>내 취향대로 만드는 바다 하루 패키지</h2><div class="meta">레저 선택 → 시간·동선 자동 구성 → 묶음 혜택</div><div class="row"><b>원하는 활동만 고르세요</b><span class="badge ok">패키지</span></div><div class="bar"><i style="width:72%"></i></div><span class="price">최대 18% 혜택 · 예시</span></div></article><article class="card" onclick="showBrowsePackage()"><div class="kind yacht">추천</div><div class="info"><div class="shop">혼행객 인기 조합</div><h2>광안리 SUP + 선셋 요트</h2><div class="meta">가까운 권역 두 곳을 묶은 반일 패키지</div><div class="row"><b>2종 선택 시 10% 혜택</b><span class="badge">테마 패키지</span></div><div class="bar"><i style="width:55%"></i></div><span class="price">AI가 시간 순서 추천</span></div></article>`;return}if(miniShell)miniShell.classList.remove('hide');const rows=mapRows();document.getElementById('resultCount').textContent=rows.length;document.getElementById('activityList').innerHTML=rows.map(cardHtml).join('')||'<div class="empty">해당 활동의 상품을 준비 중이에요.</div>';setTimeout(renderMiniMap,0)}
   function filterType(type){selectedType=type;renderList()}
   function mapRows(){return activities.filter(a=>(selectedType==='전체'||a.type===selectedType)&&activityLocations[a.id])}
   function ensureExplorerUi(){const page=document.querySelector('#guestView .page');if(document.getElementById('explorerViewSwitch'))return;const anchor=page.querySelector('.hint');anchor.insertAdjacentHTML('afterend',`<div id="explorerViewSwitch" class="view-switch"><button class="active" onclick="showGuestList()">☷ 목록형으로 보기</button><button onclick="showMapView()">⌖ 지도형으로 보기</button></div><div class="map-strip"><button id="miniLocationBtn" class="map-locate" onclick="requestUserLocation()">◎ 내 위치</button><div id="miniMapWrap" style="width:100%;height:100%" aria-label="등록 해양레저 위치 지도"></div></div>`)}
   function showGuestList(){showView('guestView')}
   function showMapView(){showView('mapView')}
   function locationOf(a){return activityLocations[a.id]||{address:`${a.area} · 상세 위치는 예약 후 안내`,lat:35.165,lng:129.07}}
-  function markerIcon(a){const color=typeMapColor[a.type]||'#087f8c';return L.divIcon({className:'',html:`<div class="pin-dot" style="background:${color}">${a.type==='SUP'?'S':a.type.charAt(0)}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-15]})}
+  function markerIcon(a){const color=typeMapColor[a.type]||'#087f8c',icons={서핑:'fa-person-swimming',SUP:'fa-water',요트:'fa-sailboat',카약:'fa-ship',다이빙:'fa-mask-face',행사:'fa-calendar-days'};return L.divIcon({className:'',html:`<div class="pin-dot" style="--pin:${color}" aria-label="${a.type}"><i class="fa-solid ${icons[a.type]||'fa-water'}"></i></div>`,iconSize:[42,46],iconAnchor:[21,43],popupAnchor:[0,-42]})}
   function popupHtml(a){const l=locationOf(a);const status=a.current>=a.min?'출발 가능':`${a.min-a.current}명 더 필요`;return `<div class="map-popup"><span class="tag">${a.type}</span><b>${a.title}</b><p>${a.shop}<br>${l.address}<br>현재 ${a.current}명 / 최소 ${a.min}명 · ${status}</p><button onclick="openMapDetail('${a.id}')">상세·합석 예약 보기</button></div>`}
   function addMapPins(map,rows){rows.forEach((a,index)=>{const l=locationOf(a),shift=(index%3)*0.00009;L.marker([l.lat+shift,l.lng+shift],{icon:markerIcon(a)}).addTo(map).bindPopup(popupHtml(a))})}
   function makeBaseMap(id,mini){const map=L.map(id,{zoomControl:true,scrollWheelZoom:true,dragging:true,tap:true,touchZoom:true,attributionControl:true}).setView([35.145,129.09],11);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);return map}
@@ -171,7 +190,7 @@
   function closeMapCard(mode){const target=document.getElementById(`${mode}MapCard`);if(target)target.innerHTML=''}
   function userLocationMarker(map){if(!userLocation||!map||!window.L)return null;const icon=L.divIcon({className:'user-location-marker',html:'<div class="user-location-pin" aria-label="내 현재 위치"><span>⌖</span><b>내 위치</b></div>',iconSize:[82,48],iconAnchor:[41,42]});return L.marker(userLocation,{icon,zIndexOffset:10000,keyboard:false}).addTo(map).bindPopup('현재 위치 · 이 위치는 저장되지 않아요.')}
   function renderMiniMap(){if(!window.L||selectedType==='패키지')return;const target=document.getElementById('miniMapWrap');if(!target)return;if(miniMap){miniMap.remove();miniMap=null}target.innerHTML='';miniMap=makeBaseMap('miniMapWrap',true);const rows=mapRows();addMapPins(miniMap,rows);userMarkerMini=userLocationMarker(miniMap);const positions=rows.map(a=>{const l=locationOf(a);return [l.lat,l.lng]});if(positions.length)miniMap.fitBounds(L.latLngBounds(positions),{padding:[18,18],maxZoom:12});setTimeout(()=>miniMap.invalidateSize(),0)}
-  function renderFullMap(){if(!window.L)return;const rows=mapRows(),target=document.getElementById('fullMap');document.getElementById('mapResultCount').textContent=`${rows.length}개 표시`;if(!target)return;if(fullMap){fullMap.remove();fullMap=null}target.innerHTML='';fullMap=makeBaseMap('fullMap',false);addMapPins(fullMap,rows);userMarkerFull=userLocationMarker(fullMap);const positions=rows.map(a=>{const l=locationOf(a);return [l.lat,l.lng]});if(positions.length)fullMap.fitBounds(L.latLngBounds(positions),{padding:[28,28],maxZoom:12});setTimeout(()=>fullMap.invalidateSize(),50)}
+  function renderFullMap(){ensureMapLegends();if(!window.L)return;const rows=mapRows(),target=document.getElementById('fullMap');document.getElementById('mapResultCount').textContent=`${rows.length}개 표시`;if(!target)return;if(fullMap){fullMap.remove();fullMap=null}target.innerHTML='';fullMap=makeBaseMap('fullMap',false);addMapPins(fullMap,rows);userMarkerFull=userLocationMarker(fullMap);const positions=rows.map(a=>{const l=locationOf(a);return [l.lat,l.lng]});if(positions.length)fullMap.fitBounds(L.latLngBounds(positions),{padding:[28,28],maxZoom:12});setTimeout(()=>fullMap.invalidateSize(),50)}
   function setLocationStatus(message){const status=document.getElementById('locationStatus');if(status)status.textContent=message}
   function requestUserLocation(){if(!navigator.geolocation){setLocationStatus('이 기기에서는 현재 위치 기능을 사용할 수 없어요.');return}if(userLocation&&userWatchId!==null){if(miniMap)miniMap.setView(userLocation,13);if(fullMap)fullMap.setView(userLocation,13);return}locationRequestedThisSession=true;locationFallbackTried=false;setLocationStatus('휴대폰의 위치 허용 창이 뜨면 “이번에만 허용” 또는 “사용 중 허용”을 선택해 주세요. 위치는 저장하거나 공유하지 않아요.');const miniButton=document.getElementById('miniLocationBtn');if(miniButton){miniButton.classList.add('on');miniButton.textContent='위치 확인 중…'}navigator.geolocation.getCurrentPosition(startUserLocation,locationError,{enableHighAccuracy:false,timeout:20000,maximumAge:60000})}
   function startUserLocation(position){locationFallbackTried=false;userLocationJustStarted=true;updateUserLocation(position);if(userWatchId!==null)navigator.geolocation.clearWatch(userWatchId);userWatchId=navigator.geolocation.watchPosition(updateUserLocation,locationWatchError,{enableHighAccuracy:false,timeout:30000,maximumAge:60000});const stop=document.getElementById('stopLocationBtn');if(stop)stop.classList.remove('hide')}
@@ -180,6 +199,167 @@
   function locationError(error){if(error&&error.code===3&&!locationFallbackTried){locationFallbackTried=true;setLocationStatus('GPS 신호를 조금 더 넓게 찾아보고 있어요.');navigator.geolocation.getCurrentPosition(startUserLocation,locationError,{enableHighAccuracy:false,timeout:20000,maximumAge:300000});return}const message=error&&error.code===1?'위치 권한이 끝났어요. 주소창 왼쪽 자물쇠(또는 사이트 설정)에서 위치를 “허용”으로 바꾼 뒤, 내 위치를 다시 눌러 주세요.':error&&error.code===2?'휴대폰 GPS를 찾지 못했어요. 휴대폰 위치 서비스를 켠 뒤 내 위치를 다시 눌러 주세요.':'현재 위치를 확인하지 못했어요. 잠시 후 내 위치를 다시 눌러 주세요.';setLocationStatus(message);const miniButton=document.getElementById('miniLocationBtn');if(miniButton){miniButton.classList.remove('on');miniButton.textContent='◎ 내 위치 다시 확인'}}
   function stopUserLocation(){if(userWatchId!==null){navigator.geolocation.clearWatch(userWatchId);userWatchId=null}userLocation=null;userLocationJustStarted=false;locationFallbackTried=false;userMarkerMini=null;userMarkerFull=null;setLocationStatus('현재 위치 표시를 중지했어요. 위치는 저장되지 않았어요.');const miniButton=document.getElementById('miniLocationBtn');if(miniButton){miniButton.classList.remove('on');miniButton.textContent='◎ 내 위치'}const stop=document.getElementById('stopLocationBtn');if(stop)stop.classList.add('hide');renderMiniMap();renderFullMap()}
   renderList();
+  function mapLegendHtml(id){const items=[['서핑','fa-person-swimming','#0b9aa6'],['SUP','fa-water','#0b9aa6'],['요트','fa-sailboat','#df7d67'],['카약','fa-ship','#739d66'],['다이빙','fa-mask-face','#467ca8'],['행사','fa-calendar-days','#8c74a8']];return `<div id="${id}" class="map-legend" aria-label="지도 핀 안내"><span class="legend-title">핀 안내</span>${items.map(([label,icon,color])=>`<span class="legend-item"><span class="legend-icon" style="--pin:${color}"><i class="fa-solid ${icon}"></i></span>${label}</span>`).join('')}</div>`}
+  function ensureMapLegends(){const mini=document.getElementById('miniMapWrap');if(mini&&!document.getElementById('miniMapLegend'))mini.closest('.map-strip').insertAdjacentHTML('afterend',mapLegendHtml('miniMapLegend'));const full=document.getElementById('fullMap');if(full&&!document.getElementById('fullMapLegend'))full.insertAdjacentHTML('afterend',mapLegendHtml('fullMapLegend'))}
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCOG1L2ful8Nqq8NKZkT5qTrLY3fD_s9YU",
+    authDomain: "giftedmuldegaza.firebaseapp.com",
+    projectId: "giftedmuldegaza",
+    storageBucket: "giftedmuldegaza.firebasestorage.app",
+    messagingSenderId: "632604963819",
+    appId: "1:632604963819:web:8f5f2750bf5a1ca3b39fae",
+    measurementId: "G-LJ2X2LJYM5"
+  };
+
+  const firebaseApp = initializeApp(firebaseConfig);
+  const auth = getAuth(firebaseApp);
+  const db = getFirestore(firebaseApp);
+  let signupMode = false;
+  let signupRole = 'guest';
+  let registrationInProgress = false;
+
+  const byId = (id) => document.getElementById(id);
+  const authStatus = (message = '', kind = '') => {
+    const status = byId('authStatus');
+    if (!status) return;
+    status.textContent = message;
+    status.className = `auth-status${kind ? ` ${kind}` : ''}`;
+  };
+
+  function updateAuthMode() {
+    byId('authTitle').textContent = signupMode ? '회원가입하고 시작하기' : '로그인하고 시작하기';
+    byId('authDescription').textContent = signupMode ? '여행객 또는 가게 운영자 역할을 먼저 골라 주세요.' : '내 예약과 관심 가게를 안전하게 관리해요.';
+    byId('authNameWrap').hidden = !signupMode;
+    byId('authRoleWrap').hidden = !signupMode;
+    byId('authSubmitButton').textContent = signupMode ? '회원가입' : '로그인';
+    byId('authModeButton').textContent = signupMode ? '이미 계정이 있다면 로그인' : '처음이라면 회원가입';
+    byId('authPassword').autocomplete = signupMode ? 'new-password' : 'current-password';
+    authStatus('');
+  }
+
+  window.toggleAuthMode = () => {
+    signupMode = !signupMode;
+    updateAuthMode();
+  };
+
+  window.selectSignupRole = (nextRole) => {
+    signupRole = nextRole === 'owner' ? 'owner' : 'guest';
+    byId('guestRoleButton').classList.toggle('selected', signupRole === 'guest');
+    byId('ownerRoleButton').classList.toggle('selected', signupRole === 'owner');
+  };
+
+  window.togglePasswordVisibility = () => {
+    const field = byId('authPassword');
+    const button = byId('passwordToggleButton');
+    const visible = field.type === 'text';
+    field.type = visible ? 'password' : 'text';
+    button.setAttribute('aria-pressed', String(!visible));
+    button.setAttribute('aria-label', visible ? '비밀번호 보기' : '비밀번호 숨기기');
+    button.innerHTML = visible ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+  };
+
+  function readableAuthError(code) {
+    const messages = {
+      'auth/email-already-in-use': '이미 가입된 이메일이에요. 로그인해 주세요.',
+      'auth/invalid-email': '이메일 형식을 확인해 주세요.',
+      'auth/weak-password': '비밀번호는 6자 이상으로 입력해 주세요.',
+      'auth/invalid-credential': '이메일 또는 비밀번호가 맞지 않아요.',
+      'auth/too-many-requests': '시도가 많아요. 잠시 후 다시 해 주세요.',
+      'auth/network-request-failed': '인터넷 연결을 확인한 뒤 다시 해 주세요.',
+      'auth/unauthorized-domain': '지금은 파일로 열어서 로그인할 수 없어요. GitHub Pages 주소에서 열어 주세요.',
+      'auth/operation-not-allowed': '로그인 설정을 확인하는 중이에요. GitHub Pages 주소에서 다시 시도해 주세요.',
+      'auth/invalid-api-key': '로그인 설정을 불러오지 못했어요. 배포된 앱에서 다시 시도해 주세요.'
+    };
+    return messages[code] || '로그인 처리 중 문제가 생겼어요. 잠시 후 다시 해 주세요.';
+  }
+
+  async function readUserProfile(user) {
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      const snapshot = await getDoc(doc(db, 'users', user.uid));
+      if (snapshot.exists()) return snapshot.data();
+      await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+    return null;
+  }
+
+  function enterRole(roleValue, displayName = '') {
+    window.role = roleValue === 'owner' ? 'owner' : 'guest';
+    if (displayName && window.setAuthDisplayName) window.setAuthDisplayName(displayName);
+    window.showView(window.role === 'owner' ? 'ownerView' : 'guestView');
+  }
+
+  window.authSubmit = async () => {
+    const email = byId('authEmail').value.trim();
+    const password = byId('authPassword').value;
+    const name = byId('authName').value.trim();
+    const submit = byId('authSubmitButton');
+    if (!email || !password || (signupMode && !name)) {
+      authStatus(signupMode ? '닉네임, 이메일, 비밀번호를 모두 입력해 주세요.' : '이메일과 비밀번호를 입력해 주세요.', 'error');
+      return;
+    }
+    if (location.protocol === 'file:') {
+      authStatus('현재 파일로 열어둔 화면에서는 실제 로그인이 되지 않아요. GitHub Pages 주소에서 다시 시도해 주세요.', 'error');
+      return;
+    }
+    submit.disabled = true;
+    authStatus(signupMode ? '계정을 만들고 있어요…' : '로그인하고 있어요…');
+    try {
+      if (signupMode) {
+        registrationInProgress = true;
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(credential.user, { displayName: name });
+        await setDoc(doc(db, 'users', credential.user.uid), {
+          role: signupRole,
+          displayName: name,
+          createdAt: Date.now()
+        });
+        enterRole(signupRole, name);
+        registrationInProgress = false;
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+    } catch (error) {
+      registrationInProgress = false;
+      authStatus(readableAuthError(error.code), 'error');
+    } finally {
+      submit.disabled = false;
+    }
+  };
+
+  window.firebaseSignOut = async () => {
+    try {
+      await signOut(auth);
+      authStatus('로그아웃됐어요.');
+    } catch (error) {
+      alert('로그아웃하지 못했어요. 인터넷 연결을 확인해 주세요.');
+    }
+  };
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.role = 'guest';
+      window.showView('loginView');
+      return;
+    }
+    if (registrationInProgress) return;
+    try {
+      const profile = await readUserProfile(user);
+      if (!profile) {
+        await signOut(auth);
+        authStatus('계정 정보를 확인하지 못했어요. 다시 로그인해 주세요.', 'error');
+        return;
+      }
+      enterRole(profile.role, profile.displayName || user.displayName || '물드가자 회원');
+    } catch (error) {
+      authStatus('계정 정보를 불러오지 못했어요. 잠시 후 다시 해 주세요.', 'error');
+    }
+  });
 </script>
 </body>
 </html>
