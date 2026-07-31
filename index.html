@@ -368,13 +368,18 @@
       return;
     }
     try {
-      await addDoc(collection(db, 'reviews'), {
+      const review = {
         activityId: activity.firestoreId || activity.id,
         authorId: user.uid,
         authorName: user.displayName || '물드가자 회원',
         content: text,
         createdAt: Date.now()
-      });
+      };
+      const created = await addDoc(collection(db, 'reviews'), review);
+      if (!window.sharedReviews[review.activityId]) window.sharedReviews[review.activityId] = [];
+      window.sharedReviews[review.activityId].push({ ...review, id: created.id });
+      window.openDetail(activity.id);
+      alert('후기가 등록됐어요. 다른 로그인 사용자에게도 바로 보여요.');
     } catch (error) {
       alert('후기를 등록하지 못했어요. 잠시 후 다시 해 주세요.');
     }
