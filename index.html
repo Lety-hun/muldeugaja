@@ -117,6 +117,8 @@
   let miniMap=null,fullMap=null,userLocation=null,userWatchId=null,userMarkerMini=null,userMarkerFull=null,userLocationJustStarted=false,locationRequestedThisSession=false,locationFallbackTried=false;
   let ownerProfile=JSON.parse(localStorage.getItem('muldeOwnerProfile')||'{"name":"서프홀릭 송정","bio":"송정해수욕장 초보 서핑 강습","area":"송정해수욕장","alert":"신청·취소 모두 받기"}');
   const ownerProducts=JSON.parse(localStorage.getItem('muldeOwnerProducts')||'[]');
+  window.activities=activities;
+  window.ownerProducts=ownerProducts;
   let packageSelection=[];
   let savedPackage=JSON.parse(localStorage.getItem('muldePackage')||'null');
   let browsePackageSelection=[];
@@ -134,7 +136,7 @@
   function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='guestView')renderList();if(id==='mapView')setTimeout(renderFullMap,0);if(id==='myView')renderMy();if(id==='ownerView')renderOwner()}
   function login(){showView('loginView')}
   function logout(){if(window.firebaseSignOut){window.firebaseSignOut();return}role='guest';showView('loginView')}
-  function renderList(){ensureExplorerUi();ensureMapLegends();const filters=document.getElementById('filters');filters.innerHTML=types.map(t=>`<button class="filter ${t===selectedType?'active':''}" onclick="filterType('${t}')">${t}</button>`).join('');const mini=document.getElementById('miniMapWrap'),miniShell=mini&&mini.closest('.map-strip');if(selectedType==='패키지'){if(miniShell)miniShell.classList.add('hide');document.getElementById('resultCount').textContent='AI';document.getElementById('activityList').innerHTML=`<article class="card" onclick="showBrowsePackage()"><div class="kind event">AI</div><div class="info"><div class="shop">물드가자 추천</div><h2>내 취향대로 만드는 바다 하루 패키지</h2><div class="meta">레저 선택 → 시간·동선 자동 구성 → 묶음 혜택</div><div class="row"><b>원하는 활동만 고르세요</b><span class="badge ok">패키지</span></div><div class="bar"><i style="width:72%"></i></div><span class="price">최대 18% 혜택 · 예시</span></div></article><article class="card" onclick="showBrowsePackage()"><div class="kind yacht">추천</div><div class="info"><div class="shop">혼행객 인기 조합</div><h2>광안리 SUP + 선셋 요트</h2><div class="meta">가까운 권역 두 곳을 묶은 반일 패키지</div><div class="row"><b>2종 선택 시 10% 혜택</b><span class="badge">테마 패키지</span></div><div class="bar"><i style="width:55%"></i></div><span class="price">AI가 시간 순서 추천</span></div></article>`;return}if(miniShell)miniShell.classList.remove('hide');const rows=mapRows();document.getElementById('resultCount').textContent=rows.length;document.getElementById('activityList').innerHTML=rows.map(cardHtml).join('')||'<div class="empty">해당 활동의 상품을 준비 중이에요.</div>';setTimeout(renderMiniMap,0)}
+  function renderList(){ensureExplorerUi();ensureMapLegends();const filters=document.getElementById('filters');filters.innerHTML=types.map(t=>`<button class="filter ${t===selectedType?'active':''}" onclick="filterType('${t}')">${t}</button>`).join('');const mini=document.getElementById('miniMapWrap'),miniShell=mini&&mini.closest('.map-strip');if(selectedType==='패키지'){if(miniShell)miniShell.classList.add('hide');document.getElementById('resultCount').textContent='AI';document.getElementById('activityList').innerHTML=`<article class="card" onclick="showBrowsePackage()"><div class="kind event">AI</div><div class="info"><div class="shop">물드가자 추천</div><h2>내 취향대로 만드는 바다 하루 패키지</h2><div class="meta">레저 선택 → 시간·동선 자동 구성 → 묶음 혜택</div><div class="row"><b>원하는 활동만 고르세요</b><span class="badge ok">패키지</span></div><div class="bar"><i style="width:72%"></i></div><span class="price">최대 18% 혜택 · 예시</span></div></article><article class="card" onclick="showBrowsePackage()"><div class="kind yacht">추천</div><div class="info"><div class="shop">혼행객 인기 조합</div><h2>광안리 SUP + 선셋 요트</h2><div class="meta">가까운 권역 두 곳을 묶은 반일 패키지</div><div class="row"><b>2종 선택 시 10% 혜택</b><span class="badge">테마 패키지</span></div><div class="bar"><i style="width:55%"></i></div><span class="price">AI가 시간 순서 추천</span></div></article>`;return}if(miniShell)miniShell.classList.remove('hide');const rows=activities.filter(a=>selectedType==='전체'||a.type===selectedType);document.getElementById('resultCount').textContent=rows.length;document.getElementById('activityList').innerHTML=rows.map(cardHtml).join('')||'<div class="empty">해당 활동의 상품을 준비 중이에요.</div>';setTimeout(renderMiniMap,0)}
   function filterType(type){selectedType=type;renderList()}
   function mapRows(){return activities.filter(a=>(selectedType==='전체'||a.type===selectedType)&&activityLocations[a.id])}
   function ensureExplorerUi(){const page=document.querySelector('#guestView .page');if(document.getElementById('explorerViewSwitch'))return;const anchor=page.querySelector('.hint');anchor.insertAdjacentHTML('afterend',`<div id="explorerViewSwitch" class="view-switch"><button class="active" onclick="showGuestList()">☷ 목록형으로 보기</button><button onclick="showMapView()">⌖ 지도형으로 보기</button></div><div class="map-strip"><button id="miniLocationBtn" class="map-locate" onclick="requestUserLocation()">◎ 내 위치</button><div id="miniMapWrap" style="width:100%;height:100%" aria-label="등록 해양레저 위치 지도"></div></div>`)}
@@ -182,7 +184,7 @@
   function approveApplicant(button){const row=button.closest('.list-row');row.querySelector('.badge').className='badge ok';row.querySelector('.badge').textContent='승인 완료';row.querySelector('.cancel-applicant').textContent='승인 취소';button.remove()}
   function cancelApplicant(button,id){if(!confirm('이 신청자를 취소 처리할까요?'))return;const a=[...activities,...ownerProducts].find(x=>x.id===id);if(a)a.current=Math.max(0,a.current-1);const row=button.closest('.list-row');row.remove();const current=document.getElementById('applicantCurrent');if(current)current.textContent=`${a.current}명`;if(!document.querySelector('#applicantList .list-row'))document.getElementById('applicantList').innerHTML='<div class="empty">현재 신청자가 없어요.</div>'}
   function showOwnerRegister(){showView('ownerRegisterView')}
-  function addOwnerProduct(){const title=document.getElementById('newTitle').value.trim(),people=document.getElementById('newPeople').value.trim(),price=Number(document.getElementById('newPrice').value);if(!title||!people||!price)return alert('상품명, 인원, 가격을 입력해 주세요.');const [min,max]=people.split('/').map(v=>Number(v.trim()));if(!min||!max)return alert('인원은 예: 3 / 6 처럼 입력해 주세요.');const a={id:`owner-${Date.now()}`,shop:document.getElementById('newShop').value||'내 가게',area:'부산',type:document.getElementById('newType').value,title,time:document.getElementById('newTime').value||'시간 미정',min,max,current:0,price,group:'운영자 등록 상품',verified:true,beginner:true,note:'운영자가 직접 등록한 시연 상품',comments:[]};ownerProducts.push(a);localStorage.setItem('muldeOwnerProducts',JSON.stringify(ownerProducts));showView('ownerView');renderOwner()}
+  function addOwnerProduct(){const title=document.getElementById('newTitle').value.trim(),people=document.getElementById('newPeople').value.trim(),price=Number(document.getElementById('newPrice').value);if(!title||!people||!price)return alert('상품명, 인원, 가격을 입력해 주세요.');const [min,max]=people.split('/').map(v=>Number(v.trim()));if(!min||!max)return alert('인원은 예: 3 / 6 처럼 입력해 주세요.');const a={shop:document.getElementById('newShop').value||'내 가게',area:'부산',type:document.getElementById('newType').value,title,time:document.getElementById('newTime').value||'시간 미정',min,max,current:0,price,group:'운영자 등록 상품',verified:true,beginner:true,note:'운영자가 직접 등록한 시연 상품',comments:[]};if(window.firebaseCreateActivity){window.firebaseCreateActivity(a);return}a.id=`owner-${Date.now()}`;ownerProducts.push(a);localStorage.setItem('muldeOwnerProducts',JSON.stringify(ownerProducts));showView('ownerView');renderOwner()}
   /* OpenStreetMap 배경 지도 + 직접 만든 핀: API 키와 별도 가입이 필요 없는 시연용 지도입니다. */
   function staticMapPosition(a,index){const l=locationOf(a),minLng=128.94,maxLng=129.215,minLat=35.025,maxLat=35.205;return {left:Math.max(4,Math.min(96,(l.lng-minLng)/(maxLng-minLng)*100+(index%3-1)*0.7)),top:Math.max(6,Math.min(94,(maxLat-l.lat)/(maxLat-minLat)*100+(Math.floor(index/3)%3-1)*0.8))}}
   function staticMapHtml(rows,mode){const bbox='128.94%2C35.025%2C129.215%2C35.205';const markers=rows.map((a,index)=>{const p=staticMapPosition(a,index),color=typeMapColor[a.type]||'#087f8c';return `<button class="map-marker" style="--pin:${color};left:${p.left}%;top:${p.top}%" onclick="showMapCard('${a.id}','${mode}')" aria-label="${a.shop} ${a.title} 위치">${a.type==='SUP'?'S':a.type.charAt(0)}</button>`}).join('');return `<div class="static-map"><iframe class="osm-frame" title="부산 해양레저 위치 지도" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik"></iframe>${markers}<div id="${mode}MapCard"></div></div>`}
@@ -205,7 +207,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCOG1L2ful8Nqq8NKZkT5qTrLY3fD_s9YU",
@@ -223,6 +225,7 @@
   let signupMode = false;
   let signupRole = 'guest';
   let registrationInProgress = false;
+  let stopActivitySync = null;
 
   const byId = (id) => document.getElementById(id);
   const authStatus = (message = '', kind = '') => {
@@ -294,6 +297,47 @@
     window.showView(window.role === 'owner' ? 'ownerView' : 'guestView');
   }
 
+  function syncSharedActivities() {
+    if (stopActivitySync) return;
+    stopActivitySync = onSnapshot(collection(db, 'activities'), (snapshot) => {
+      const remoteItems = snapshot.docs.map((item) => ({
+        ...item.data(),
+        id: `live-${item.id}`,
+        firestoreId: item.id,
+        comments: item.data().comments || []
+      }));
+      for (let index = window.activities.length - 1; index >= 0; index -= 1) {
+        if (window.activities[index].firestoreId) window.activities.splice(index, 1);
+      }
+      window.activities.push(...remoteItems);
+      window.ownerProducts.splice(0, window.ownerProducts.length, ...remoteItems.filter((item) => item.ownerId === auth.currentUser?.uid));
+      const activeView = document.querySelector('.view.active')?.id;
+      if (activeView === 'guestView') window.renderList();
+      if (activeView === 'mapView') window.renderFullMap();
+      if (activeView === 'ownerView') window.renderOwner();
+    }, () => authStatus('상품 목록을 불러오지 못했어요. 잠시 후 다시 열어 주세요.', 'error'));
+  }
+
+  window.firebaseCreateActivity = async (activity) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('상품을 등록하려면 운영자 계정으로 로그인해 주세요.');
+      return;
+    }
+    try {
+      await addDoc(collection(db, 'activities'), {
+        ...activity,
+        ownerId: user.uid,
+        ownerName: user.displayName || '물드가자 운영자',
+        createdAt: Date.now()
+      });
+      alert('상품이 등록됐어요. 이제 다른 여행객 화면에도 바로 보여요.');
+      window.showView('ownerView');
+    } catch (error) {
+      alert('상품을 등록하지 못했어요. 잠시 후 다시 해 주세요.');
+    }
+  };
+
   window.authSubmit = async () => {
     const email = byId('authEmail').value.trim();
     const password = byId('authPassword').value;
@@ -356,6 +400,7 @@
         return;
       }
       enterRole(profile.role, profile.displayName || user.displayName || '물드가자 회원');
+      syncSharedActivities();
     } catch (error) {
       authStatus('계정 정보를 불러오지 못했어요. 잠시 후 다시 해 주세요.', 'error');
     }
