@@ -117,8 +117,10 @@
   let miniMap=null,fullMap=null,userLocation=null,userWatchId=null,userMarkerMini=null,userMarkerFull=null,userLocationJustStarted=false,locationRequestedThisSession=false,locationFallbackTried=false;
   let ownerProfile=JSON.parse(localStorage.getItem('muldeOwnerProfile')||'{"name":"서프홀릭 송정","bio":"송정해수욕장 초보 서핑 강습","area":"송정해수욕장","alert":"신청·취소 모두 받기"}');
   const ownerProducts=JSON.parse(localStorage.getItem('muldeOwnerProducts')||'[]');
+  const sharedReviews={};
   window.activities=activities;
   window.ownerProducts=ownerProducts;
+  window.sharedReviews=sharedReviews;
   let packageSelection=[];
   let savedPackage=JSON.parse(localStorage.getItem('muldePackage')||'null');
   let browsePackageSelection=[];
@@ -152,7 +154,8 @@
   function openMapDetail(id){openDetail(id)}
   function cardHtml(a){const ratio=Math.min(100,Math.round((a.current/a.min)*100));const text=a.current>=a.min?'출발 가능':`현재 ${a.current}명 · ${a.min-a.current}명 더 필요`;const status=a.current>=a.min?'출발 가능':'모집 중';const liked=favorites.includes(a.id),location=locationOf(a);return `<article class="card" onclick="openDetail('${a.id}')"><div class="kind ${kindClass[a.type]||''}">${a.type}</div><div class="info"><button class="fav-mini ${liked?'on':''}" aria-label="관심 가게" onclick="event.stopPropagation();quickFavorite('${a.id}')">${liked?'♥':'♡'}</button><div class="shop">${a.shop}</div><h2>${a.title}</h2><div class="meta">${a.area} · ${a.time}</div><div class="address-row"><span>⌖</span><span>${location.address}</span></div><div class="row"><b>${text}</b><span class="badge ${a.current>=a.min?'ok':a.verified?'':'check'}">${a.verified?status:'정보 확인'}</span></div><div class="bar"><i style="width:${ratio}%"></i></div><div class="row"><span class="price">${won(a.price)}</span><span>${a.max}명 정원</span></div></div></article>`}
   function findActivity(){return activities.find(a=>a.id===selectedId)}
-  function openDetail(id){selectedId=id;const a=findActivity();const joined=reservations.includes(id), fav=favorites.includes(id), isFull=a.current>=a.max;document.getElementById('detailFav').textContent=fav?'♥ 관심':'♡ 관심';document.getElementById('detailContent').innerHTML=`<div class="detail-hero ${kindClass[a.type]||''}"><div class="eyebrow" style="color:#d8fffc">${a.shop} · ${a.type}</div><h1>${a.title}</h1><p>${a.area} · ${a.time}<br>${a.beginner?'초보 참여 가능':'경험·교육 조건 확인 필요'}</p></div><div class="panel"><div class="join-grid"><div><h3>${a.current>=a.min?'출발 가능한 모임이에요':(a.min-a.current)+'명만 더 모이면 출발해요!'}</h3><p class="hint">현재 ${a.current}명 / 최소 ${a.min}명 / 최대 ${a.max}명</p></div><span class="badge ${a.current>=a.min?'ok':''}">${a.current>=a.min?'출발 가능':'모집 중'}</span></div><div class="bar"><i style="width:${Math.min(100,Math.round(a.current/a.min*100))}%"></i></div><div class="row"><span class="price">${won(a.price)}</span><span>${a.group}</span></div><p class="hint" style="margin-top:9px">${a.note}</p><button class="button" style="margin-top:13px" ${isFull?'disabled':''} onclick="openBooking()">${isFull?'정원 마감':'인원 선택 후 합석 예약'}</button>${!isFull?'<button class="button sub" style="margin-top:8px" onclick="addWaitlist()">대기 알림 받기</button>':''}${joined?`<p class="hint" style="margin-top:9px">내 예약: ${reservationQty[a.id]||1}명 · 코드 ${reservationCode(a.id)}</p>`:''}</div><div class="panel"><h3>가게 정보</h3><div class="list-row"><span>가격 정보</span><b>${a.verified?'공개 정보 확인':'가게 확인 필요'}</b></div><div class="list-row"><span>공동예약</span><b>현재 ${a.current}명 참여</b></div><div class="list-row"><span>예약 코드</span><b>${joined?reservationCode(a.id):'예약 후 발급'}</b></div></div><div class="panel"><h3>현장 이야기 · 후기</h3>${a.comments.map(c=>`<div class="post"><b>${c[0]} <span class="tag">${c[0].includes('운영')||c[0].includes('서프')?'가게':'여행객'}</span></b><br>${c[1]}</div>`).join('')}<div class="form"><label>현장 분위기 또는 후기 남기기</label><textarea id="commentInput" rows="2" placeholder="예: 샤워실 대기 10분, 강사님 설명이 자세해요"></textarea><button class="small-btn" onclick="addComment()">후기 등록</button></div></div>`;showView('detailView')}
+  function allComments(a){const key=a.firestoreId||a.id;return [...(a.comments||[]),...((sharedReviews[key]||[]).map(r=>[r.authorName,r.content,'여행객']))]}
+  function openDetail(id){selectedId=id;const a=findActivity();const joined=reservations.includes(id), fav=favorites.includes(id), isFull=a.current>=a.max;document.getElementById('detailFav').textContent=fav?'♥ 관심':'♡ 관심';document.getElementById('detailContent').innerHTML=`<div class="detail-hero ${kindClass[a.type]||''}"><div class="eyebrow" style="color:#d8fffc">${a.shop} · ${a.type}</div><h1>${a.title}</h1><p>${a.area} · ${a.time}<br>${a.beginner?'초보 참여 가능':'경험·교육 조건 확인 필요'}</p></div><div class="panel"><div class="join-grid"><div><h3>${a.current>=a.min?'출발 가능한 모임이에요':(a.min-a.current)+'명만 더 모이면 출발해요!'}</h3><p class="hint">현재 ${a.current}명 / 최소 ${a.min}명 / 최대 ${a.max}명</p></div><span class="badge ${a.current>=a.min?'ok':''}">${a.current>=a.min?'출발 가능':'모집 중'}</span></div><div class="bar"><i style="width:${Math.min(100,Math.round(a.current/a.min*100))}%"></i></div><div class="row"><span class="price">${won(a.price)}</span><span>${a.group}</span></div><p class="hint" style="margin-top:9px">${a.note}</p><button class="button" style="margin-top:13px" ${isFull?'disabled':''} onclick="openBooking()">${isFull?'정원 마감':'인원 선택 후 합석 예약'}</button>${!isFull?'<button class="button sub" style="margin-top:8px" onclick="addWaitlist()">대기 알림 받기</button>':''}${joined?`<p class="hint" style="margin-top:9px">내 예약: ${reservationQty[a.id]||1}명 · 코드 ${reservationCode(a.id)}</p>`:''}</div><div class="panel"><h3>가게 정보</h3><div class="list-row"><span>가격 정보</span><b>${a.verified?'공개 정보 확인':'가게 확인 필요'}</b></div><div class="list-row"><span>공동예약</span><b>현재 ${a.current}명 참여</b></div><div class="list-row"><span>예약 코드</span><b>${joined?reservationCode(a.id):'예약 후 발급'}</b></div></div><div class="panel"><h3>현장 이야기 · 후기</h3>${allComments(a).map(c=>`<div class="post"><b>${c[0]} <span class="tag">${c[2]||((c[0].includes('운영')||c[0].includes('서프'))?'가게':'여행객')}</span></b><br>${c[1]}</div>`).join('')}<div class="form"><label>현장 분위기 또는 후기 남기기</label><textarea id="commentInput" rows="2" placeholder="예: 샤워실 대기 10분, 강사님 설명이 자세해요"></textarea><button class="small-btn" onclick="addComment()">후기 등록</button></div></div>`;showView('detailView')}
   function reservationCode(id){return `MUL-${id.replace(/[^a-z]/g,'').slice(0,5).toUpperCase()}-2026`}
   function openBooking(){const a=findActivity();const available=a.max-a.current;document.getElementById('bookingContent').innerHTML=`<div class="eyebrow">${a.shop}</div><h1 class="headline">${a.title}</h1><div class="panel"><h3>예약 가격과 인원</h3><div class="quick"><div class="stat"><b>${won(a.price)}</b>1인 예상가</div><div class="stat"><b>${a.current}명</b>현재 참여</div><div class="stat"><b>${available}명</b>예약 가능</div></div><p class="hint">함께 참여할 친구·가족 인원까지 한 번에 예약할 수 있어요.</p></div><div class="panel"><div class="row"><b>예약할 인원을 선택해 주세요</b><span id="bookingQtyLabel" class="person-count">1명</span></div><input id="bookingRange" class="person-range" type="range" min="1" max="${available}" value="1" oninput="updateBookingPrice()"><div class="row"><span class="hint">최소 1명</span><span class="hint">최대 ${available}명</span></div><div class="panel discount-box"><div class="row"><span>선택 인원</span><b id="bookingPeopleText">1명</b></div><div class="row"><span>예상 총액</span><span id="bookingTotal" class="price discount">${a.price?won(a.price):'가격 확인 필요'}</span></div></div><div class="notice">합석 예약 후 가게와 다른 참여자에게는 ‘총 1명/3명 참여’처럼 인원만 표시돼요. 개인정보는 공개되지 않아요.</div><button class="button" style="margin-top:14px" onclick="confirmBooking()">선택한 인원으로 예약하기</button></div>`;showView('bookingView')}
   function updateBookingPrice(){const a=findActivity(),qty=Number(document.getElementById('bookingRange').value);document.getElementById('bookingQtyLabel').textContent=`${qty}명`;document.getElementById('bookingPeopleText').textContent=`${qty}명`;document.getElementById('bookingTotal').textContent=a.price?won(a.price*qty):'가격 확인 필요'}
@@ -160,7 +163,7 @@
   function addWaitlist(){alert('대기 알림이 등록되었어요. 취소 자리가 생기면 알려드릴게요. (시연 기능)')}
   function toggleFavorite(){if(!selectedId)return;favorites=favorites.includes(selectedId)?favorites.filter(id=>id!==selectedId):[...favorites,selectedId];localStorage.setItem('muldeFavorites',JSON.stringify(favorites));openDetail(selectedId)}
   function quickFavorite(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem('muldeFavorites',JSON.stringify(favorites));if(document.getElementById('favoritesView').classList.contains('active'))showFavorites();else renderList()}
-  function addComment(){const input=document.getElementById('commentInput'),a=findActivity();const text=input.value.trim();if(!text)return alert('후기 내용을 입력해 주세요.');a.comments.push([profile.name,text]);openDetail(a.id)}
+  function addComment(){const input=document.getElementById('commentInput'),a=findActivity();const text=input.value.trim();if(!text)return alert('후기 내용을 입력해 주세요.');if(window.firebaseCreateReview){window.firebaseCreateReview(a,text);return}a.comments.push([profile.name,text]);openDetail(a.id)}
   function showFavorites(){const list=favorites.map(id=>activities.find(a=>a.id===id)).filter(Boolean);document.getElementById('favoriteList').innerHTML=list.map(cardHtml).join('')||'<div class="empty">관심 가게가 없어요.<br>상품 상세에서 ♡ 버튼을 눌러 담아 보세요.</div>';showView('favoritesView')}
   function renderMy(){document.getElementById('profileName').textContent=profile.name;document.getElementById('profileBio').textContent=profile.bio;document.getElementById('profileAvatar').textContent=profile.name.slice(0,1);document.getElementById('reservationNum').textContent=reservations.length;document.getElementById('favoriteNum').textContent=favorites.length;const mine=reservations.map(id=>activities.find(a=>a.id===id)).filter(Boolean);document.getElementById('myReservations').innerHTML=mine.map(a=>`<div class="panel"><b>${a.title}</b><p class="hint">${a.shop} · ${a.area} · ${a.time}<br>예약 인원 ${reservationQty[a.id]||1}명 · 예약 코드 ${reservationCode(a.id)}</p><span class="badge ok">합석 예약 완료</span><button class="button warn" style="margin-top:10px" onclick="cancelReservation('${a.id}')">예약 전체 취소하기</button></div>`).join('')||'<div class="empty">아직 합석 예약이 없어요.<br>마음에 드는 바다 활동을 찾아보세요.</div>';document.getElementById('myPackages').innerHTML=savedPackage?`<h2>나의 AI 패키지</h2><div class="panel"><div class="row"><b>${savedPackage.name}</b><span class="badge ok">패키지 생성 완료</span></div><p class="hint">${savedPackage.items.map(x=>x.title).join(' → ')}</p><div class="row"><span class="price">예상 ${won(savedPackage.discounted)}</span><span>${savedPackage.rate||10}% 혜택 적용</span></div><button class="button sub" style="margin-top:10px" onclick="showBrowsePackage()">일정 다시 구성하기</button><button class="button warn" style="margin-top:8px" onclick="cancelPackage()">패키지 예약 취소하기</button></div>`:''}
   function cancelPackage(){if(!confirm('시연용 패키지 예약을 취소할까요?'))return;savedPackage=null;localStorage.removeItem('muldePackage');renderMy()}
@@ -226,6 +229,7 @@
   let signupRole = 'guest';
   let registrationInProgress = false;
   let stopActivitySync = null;
+  let stopReviewSync = null;
 
   const byId = (id) => document.getElementById(id);
   const authStatus = (message = '', kind = '') => {
@@ -318,6 +322,25 @@
     }, () => authStatus('상품 목록을 불러오지 못했어요. 잠시 후 다시 열어 주세요.', 'error'));
   }
 
+  function syncSharedReviews() {
+    if (stopReviewSync) return;
+    stopReviewSync = onSnapshot(collection(db, 'reviews'), (snapshot) => {
+      const grouped = {};
+      snapshot.docs
+        .map((item) => ({ id: item.id, ...item.data() }))
+        .sort((first, second) => (first.createdAt || 0) - (second.createdAt || 0))
+        .forEach((review) => {
+          if (!grouped[review.activityId]) grouped[review.activityId] = [];
+          grouped[review.activityId].push(review);
+        });
+      Object.keys(window.sharedReviews).forEach((key) => delete window.sharedReviews[key]);
+      Object.assign(window.sharedReviews, grouped);
+      const activeView = document.querySelector('.view.active')?.id;
+      const selected = window.activities.find((activity) => activity.id === window.selectedId);
+      if (activeView === 'detailView' && selected) window.openDetail(window.selectedId);
+    });
+  }
+
   window.firebaseCreateActivity = async (activity) => {
     const user = auth.currentUser;
     if (!user) {
@@ -335,6 +358,25 @@
       window.showView('ownerView');
     } catch (error) {
       alert('상품을 등록하지 못했어요. 잠시 후 다시 해 주세요.');
+    }
+  };
+
+  window.firebaseCreateReview = async (activity, text) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('후기를 남기려면 로그인해 주세요.');
+      return;
+    }
+    try {
+      await addDoc(collection(db, 'reviews'), {
+        activityId: activity.firestoreId || activity.id,
+        authorId: user.uid,
+        authorName: user.displayName || '물드가자 회원',
+        content: text,
+        createdAt: Date.now()
+      });
+    } catch (error) {
+      alert('후기를 등록하지 못했어요. 잠시 후 다시 해 주세요.');
     }
   };
 
@@ -401,6 +443,7 @@
       }
       enterRole(profile.role, profile.displayName || user.displayName || '물드가자 회원');
       syncSharedActivities();
+      syncSharedReviews();
     } catch (error) {
       authStatus('계정 정보를 불러오지 못했어요. 잠시 후 다시 해 주세요.', 'error');
     }
